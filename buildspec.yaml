@@ -1,10 +1,19 @@
 version: 0.2
-
 phases:
   install:
     commands:
-      - docker build -t mathandotcom/samplenode:latest .
+      - echo install step...
+  pre_build:
+    commands:
+      - echo logging in to AWS ECR...
+      - $ docker login --username=mathandotcom --password=mm070676
   build:
     commands:
+      - echo build Docker image on `date`
+      - docker build -t mathandotcom/samplenode:latest .
+      
+  post_build:
+    commands:
+      - echo build Docker image complete `date`
+      - echo push latest Docker images to Docker Hub...
       - docker push mathandotcom/samplenode:latest
-'
