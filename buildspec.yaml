@@ -4,3 +4,7 @@ phases:
   install:
     commands:
       - echo Nothing to do in the pre_build phase...
+    
+    script:
+      - docker build -t mathandotcom/samplenode:latest .
+      - docker push mathandotcom/samplenode:latest
