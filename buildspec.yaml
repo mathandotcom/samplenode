@@ -1,0 +1,4 @@
+buildjob:
+    pre_build:
+        commands:
+          - echo Nothing to do in the pre_build phase...
