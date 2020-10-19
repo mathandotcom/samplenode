@@ -8,7 +8,7 @@ phases:
       - aws --version
       - $(aws ecr get-login --no-include-email --region us-east-1)
       - REPOSITORY_URI=529625914815.dkr.ecr.us-east-1.amazonaws.com/dockerpush
-      - TIMESTAMP=$(date +%Y%m%d%H%M%S)
+      - TIMESTAMP=$(TZ=America/New_York date +%Y%m%d%H%M%S)
       - echo $TIMESTAMP
       - TAG=$REPOSITORY_URI:$TIMESTAMP
       - echo $TAG
