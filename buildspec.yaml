@@ -6,6 +6,8 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - REPOSITORY_URI=529625914815.dkr.ecr.us-east-1.amazonaws.com/dockerpush
       - TIMESTAMP=$(date +%Y-%m-%d.%H:%M:%S)
       - echo $TIMESTAMP
       
@@ -14,3 +16,11 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo $TIMESTAMP
+      - docker build -t $REPOSITORY_URI:v2 .
+      - docker tag $REPOSITORY_URI:v2 $REPOSITORY_URI:$TIMESTAMP
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:$TIMESTAMP
+      - echo Writing image definitions file...
