@@ -8,6 +8,8 @@ phases:
       - aws --version
       - $(aws ecr get-login --no-include-email --region us-east-1)
       - REPOSITORY_URI=529625914815.dkr.ecr.us-east-1.amazonaws.com/dockerpush
+      - DATE_TIME='date'
+      - echo $DATE_TIME
       
   build:
     commands:
