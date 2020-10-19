@@ -10,17 +10,19 @@ phases:
       - REPOSITORY_URI=529625914815.dkr.ecr.us-east-1.amazonaws.com/dockerpush
       - TIMESTAMP=$(date +%Y-%m-%d.%H:%M:%S)
       - echo $TIMESTAMP
+      - TAG=$REPOSITORY_URI:$TIMESTAMP
+      - echo $TAG
       
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo $TIMESTAMP
-      - docker build -t $REPOSITORY_URI:v2 .
-      - docker tag $REPOSITORY_URI:v2 $REPOSITORY_URI:$TIMESTAMP
+      - docker build -t $TAG .
+      - docker tag $TAG $TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:$TIMESTAMP
+      - docker push $TAG
       - echo Writing image definitions file...
