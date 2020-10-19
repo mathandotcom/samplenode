@@ -1,19 +1,23 @@
 version: 0.2
+
+
 phases:
-  install:
-    commands:
-      - echo install step...
   pre_build:
     commands:
-      - echo logging in to AWS ECR...
-      - docker login --username=\"mathandotcom\" --password=\"mm070676\"
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - REPOSITORY_URI=529625914815.dkr.ecr.us-east-1.amazonaws.com/dockerpush
+      
   build:
     commands:
-      - echo build Docker image on `date`
-      - docker build -t mathandotcom/samplenode:latest .
-      
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:v2 .
+      - docker tag $REPOSITORY_URI:v2 $REPOSITORY_URI:v2
   post_build:
     commands:
-      - echo build Docker image complete `date`
-      - echo push latest Docker images to Docker Hub...
-      - docker push mathandotcom/samplenode:latest
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:v2
+      - echo Writing image definitions file...
