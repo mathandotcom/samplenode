@@ -8,10 +8,8 @@ phases:
       - aws --version
       - $(aws ecr get-login --no-include-email --region us-east-1)
       - REPOSITORY_URI=529625914815.dkr.ecr.us-east-1.amazonaws.com/dockerpush
-      - timestamp=$(date +%Y-%m-%d.%H:%M:%S)
-      - echo "Inside PreBuild: " $timestamp
-    
+      
   build:
     commands:
-       - echo "Inside Build: " $timestamp
-
+      - echo Build started on `date`
+      - echo Building the Docker image...
