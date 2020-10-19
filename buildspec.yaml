@@ -8,10 +8,11 @@ phases:
       - aws --version
       - $(aws ecr get-login --no-include-email --region us-east-1)
       - REPOSITORY_URI=529625914815.dkr.ecr.us-east-1.amazonaws.com/dockerpush
+       #get timestamp for the tag 
+       timestamp=$(date +%Y-%m-%d.%H:%M:%S)
+       echo 'Inside PreBuild: " $timestamp
     
   build:
     commands:
-       #get timestamp for the tag 
-       timestamp=$(date +%Y-%m-%d.%H:%M:%S)
-       echo $timestamp
+       echo 'Inside Build " $timestamp
 
